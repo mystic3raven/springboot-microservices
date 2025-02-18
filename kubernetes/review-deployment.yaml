@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: review-service
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: review-service
+  template:
+    metadata:
+      labels:
+        app: review-service
+    spec:
+      serviceAccountName: eks-admin
+      containers:
+        - name: review-service
+          image: com.example/review-service:latest
+          ports:
+            - containerPort: 8082
